@@ -1,0 +1,10 @@
+scenario folder
+{
+	link		h1
+	volume		folder
+	table		folder
+
+	field		=  fullfolder
+	field		=  filecount
+	field		=  moddate
+}

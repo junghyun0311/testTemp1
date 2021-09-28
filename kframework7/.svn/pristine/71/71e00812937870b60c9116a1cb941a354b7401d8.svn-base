@@ -1,0 +1,43 @@
+ECHO "[CREATE TABLE - BEGIN: board]";
+USE VOLUME temp;
+CREATE TABLE board
+(
+	doc_seq		STRING PRIMARY,		/* 게시판 pk */
+	title		TEXT NULL,		/* 제목 */
+	content		TEXT NULL,		/* 본문 */
+	regdate		INT64 META NULL,		/* 작성일 */
+	year		INT16 META NULL,		/* 연도 */
+	writer		STRING PARA NULL,		/* 작성자 */
+	fullpath		TEXT NULL,		/* 카테고리패스 */
+	thumbnail		STRING NULL,		/* 사진경로 */
+);
+
+ECHO "[CREATE TABLE - END: board]";
+
+ECHO "[CREATE INDEX - BEGIN: board]";
+
+CREATE INDEX text_idx ON board (title, content, fullpath);
+CREATE INDEX strp_idx ON board (writer);
+CREATE INDEX int16_idx ON board (year);
+CREATE INDEX int64_idx ON board (regdate);
+
+ECHO "[CREATE INDEX - END: board]";
+
+
+ECHO "[CREATE GATEWAY - BEGIN: gw_board]";
+
+CREATE GATEWAY gw_board ON board
+TO FILE SYSTEM
+FORMAT
+
+	doc_seq		= "<__doc_seq__>",
+	title		= "<__title__>",
+	content		= "<__content__>",
+	regdate		= "<__regdate__>",
+	year		= "<__year__>",
+	writer		= "<__writer__>",
+	fullpath		= "<__fullpath__>",
+	thumbnail		= "<__thumbnail__>";
+
+ECHO "[CREATE GATEWAY - END: gw_board]";
+

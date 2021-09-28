@@ -1,0 +1,7 @@
+;
+;    VOLUME CONFIGURATION
+;
+volume_device             = "../volume/person"
+log_device                = "../volume/person"
+temp_device               = "../volume/person"
+

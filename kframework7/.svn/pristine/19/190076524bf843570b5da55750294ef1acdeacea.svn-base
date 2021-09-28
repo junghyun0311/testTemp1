@@ -1,0 +1,25 @@
+ECHO "[##### BULK INDEXING - BEGIN: category #####]";
+
+SCHEDULE * OFF;
+
+CREATE VOLUME BY FORCE temp;
+USE VOLUME temp;
+
+/*
+exec "jdbc_category_bulk.bat";
+*/
+
+RUN ../script/category/category_ddl.kql;
+
+RUN ../script/category/category_dml.kql;
+
+
+ECHO "[COPY VOLUME - BEGIN: //localhost/temp -> //localhost/category]";
+
+COPY VOLUME temp TO category;
+
+ECHO "[COPY VOLUME - BEGIN: //localhost/temp -> //localhost/category]";
+
+SCHEDULE * ON;
+
+ECHO "[##### BULK INDEXING - END: category #####]";

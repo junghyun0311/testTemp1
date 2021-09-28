@@ -1,0 +1,25 @@
+ECHO "[##### BULK INDEXING - BEGIN: person #####]";
+
+SCHEDULE * OFF;
+
+CREATE VOLUME BY FORCE temp;
+USE VOLUME temp;
+
+/*
+exec "jdbc_person_bulk.bat";
+*/
+
+RUN ../script/person/person_ddl.kql;
+
+RUN ../script/person/person_dml.kql;
+
+
+ECHO "[COPY VOLUME - BEGIN: //localhost/temp -> //localhost/person]";
+
+COPY VOLUME temp TO person;
+
+ECHO "[COPY VOLUME - BEGIN: //localhost/temp -> //localhost/person]";
+
+SCHEDULE * ON;
+
+ECHO "[##### BULK INDEXING - END: person #####]";

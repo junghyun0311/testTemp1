@@ -1,0 +1,5 @@
+ECHO "[IMPORT DATA - BEGIN: document]";
+USE VOLUME temp;
+IMPORT RECORDS FROM FILE SYSTEM TO document THROUGH gw_document SELECT ../cxfile/bulk/document *.fgf;
+
+ECHO "[IMPORT DATA - END: document]";

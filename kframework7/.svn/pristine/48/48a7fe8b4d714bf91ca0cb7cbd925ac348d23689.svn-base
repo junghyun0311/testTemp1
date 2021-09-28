@@ -1,0 +1,5 @@
+ECHO "[IMPORT DATA - BEGIN: category]";
+USE VOLUME temp;
+IMPORT RECORDS FROM FILE SYSTEM TO category THROUGH gw_category SELECT ../cxfile/bulk/category *.fgf;
+
+ECHO "[IMPORT DATA - END: category]";

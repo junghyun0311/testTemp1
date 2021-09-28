@@ -1,0 +1,9 @@
+scenario category
+{
+	link		h1
+	volume		category
+	table		category
+
+	field		=  ctgr_seq
+	field		=  ctgr
+}

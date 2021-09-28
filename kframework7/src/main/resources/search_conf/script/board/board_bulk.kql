@@ -1,0 +1,25 @@
+ECHO "[##### BULK INDEXING - BEGIN: board #####]";
+
+SCHEDULE * OFF;
+
+CREATE VOLUME BY FORCE temp;
+USE VOLUME temp;
+
+/*
+exec "jdbc_board_bulk.bat";
+*/
+
+RUN ../script/board/board_ddl.kql;
+
+RUN ../script/board/board_dml.kql;
+
+
+ECHO "[COPY VOLUME - BEGIN: //localhost/temp -> //localhost/board]";
+
+COPY VOLUME temp TO board;
+
+ECHO "[COPY VOLUME - BEGIN: //localhost/temp -> //localhost/board]";
+
+SCHEDULE * ON;
+
+ECHO "[##### BULK INDEXING - END: board #####]";

@@ -1,0 +1,26 @@
+scenario person
+{
+	link		h1
+	volume		person
+	table		person
+
+	field		=  prs_seq
+	field		=  prs_nm_ko
+	field		=  prs_nm_en
+	field		=  head_nm
+	field		=  dept_nm
+	field		=  role_nm
+	field		=  picture
+	field		=  phone_no
+	field		=  mobile_no
+	field		=  email
+}
+
+scenario person_tree
+{
+	link		h1
+	volume		person
+	table		person
+	
+	field		= tree_data
+}

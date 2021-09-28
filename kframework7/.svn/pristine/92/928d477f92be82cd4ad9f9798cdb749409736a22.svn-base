@@ -1,0 +1,25 @@
+ECHO "[##### BULK INDEXING - BEGIN: site #####]";
+
+SCHEDULE * OFF;
+
+CREATE VOLUME BY FORCE temp;
+USE VOLUME temp;
+
+/*
+exec "jdbc_site_bulk.bat";
+*/
+
+RUN ../script/site/site_ddl.kql;
+
+RUN ../script/site/site_dml.kql;
+
+
+ECHO "[COPY VOLUME - BEGIN: //localhost/temp -> //localhost/site]";
+
+COPY VOLUME temp TO site;
+
+ECHO "[COPY VOLUME - BEGIN: //localhost/temp -> //localhost/site]";
+
+SCHEDULE * ON;
+
+ECHO "[##### BULK INDEXING - END: site #####]";

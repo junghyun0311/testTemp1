@@ -1,0 +1,28 @@
+ECHO "[CREATE TABLE - BEGIN: category]";
+USE VOLUME temp;
+CREATE TABLE category
+(
+	ctgr_seq		STRING PRIMARY,		/* 카테고리 pk */
+	ctgr		TEXT NULL,		/* 카테고리명 */
+);
+
+ECHO "[CREATE TABLE - END: category]";
+
+ECHO "[CREATE INDEX - BEGIN: category]";
+
+CREATE INDEX text_idx ON category (ctgr);
+
+ECHO "[CREATE INDEX - END: category]";
+
+
+ECHO "[CREATE GATEWAY - BEGIN: gw_category]";
+
+CREATE GATEWAY gw_category ON category
+TO FILE SYSTEM
+FORMAT
+
+	ctgr_seq		= "<__ctgr_seq__>",
+	ctgr		= "<__ctgr__>";
+
+ECHO "[CREATE GATEWAY - END: gw_category]";
+

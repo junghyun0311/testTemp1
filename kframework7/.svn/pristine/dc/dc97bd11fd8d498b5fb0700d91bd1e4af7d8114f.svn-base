@@ -1,0 +1,35 @@
+ECHO "[CREATE TABLE - BEGIN: site]";
+USE VOLUME temp;
+CREATE TABLE site
+(
+	site_seq		STRING PRIMARY,		/* 사이트 pk */
+	site_nm		TEXT NULL,		/* 사이트명 */
+	site_desc		TEXT NULL,		/* 사이트 설명 */
+	site_hompy		STRING NULL,		/* 사이트 홈페이지 */
+	site_ctgr		STRING LIST NULL,		/* 사이트 카테고리 */
+);
+
+ECHO "[CREATE TABLE - END: site]";
+
+ECHO "[CREATE INDEX - BEGIN: site]";
+
+CREATE INDEX text_idx ON site (site_nm, site_desc);
+CREATE INDEX strl_idx ON site (site_ctgr);
+
+ECHO "[CREATE INDEX - END: site]";
+
+
+ECHO "[CREATE GATEWAY - BEGIN: gw_site]";
+
+CREATE GATEWAY gw_site ON site
+TO FILE SYSTEM
+FORMAT
+
+	site_seq		= "<__site_seq__>",
+	site_nm		= "<__site_nm__>",
+	site_desc		= "<__site_desc__>",
+	site_hompy		= "<__site_hompy__>",
+	site_ctgr		= "<__site_ctgr__>";
+
+ECHO "[CREATE GATEWAY - END: gw_site]";
+

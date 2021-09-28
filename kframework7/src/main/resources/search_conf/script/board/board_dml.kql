@@ -1,0 +1,5 @@
+ECHO "[IMPORT DATA - BEGIN: board]";
+USE VOLUME temp;
+IMPORT RECORDS FROM FILE SYSTEM TO board THROUGH gw_board SELECT ../cxfile/bulk/board *.fgf;
+
+ECHO "[IMPORT DATA - END: board]";

@@ -1,0 +1,35 @@
+scenario document
+{
+	link		h1
+	volume		document
+	table		document
+
+	field		=  doc_seq
+	field		=  title (, "<strong>", "</strong>")
+	field		=  content  (200, "<strong>", "</strong>")
+	field		=  filename
+	field		=  filepath  (200, "<strong>", "</strong>")
+	field		=  writer
+	field		=  regdate
+	field		=  year
+	field		=  fullpath
+	field		=  thumbnail
+}
+
+scenario document_preview
+{
+	link		h1
+	volume		document
+	table		document
+
+	field		=  filepath  (200, "<strong>", "</strong>")
+}
+
+scenario document_year
+{
+	link		h1
+	volume		document
+	table		document
+
+	field		=  year
+}

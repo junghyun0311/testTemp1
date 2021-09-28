@@ -1,0 +1,49 @@
+ECHO "[CREATE TABLE - BEGIN: person]";
+USE VOLUME temp;
+CREATE TABLE person
+(
+	prs_seq		STRING PRIMARY,		/* 인물 pk */
+	prs_nm_ko		STRING PARA NULL,		/* 이름(한국어) */
+	prs_nm_en		STRING PARA NULL,		/* 이름(영어) */
+	head_nm		TEXT NULL,		/* 본부명 */
+	dept_nm		TEXT NULL,		/* 부서명 */
+	role_nm		TEXT NULL,		/* 담당업무 */
+	tree_data	STRING NULL,		/* 트리구조를 위한 데이터 */
+	picture		STRING NULL,		/* 사진경로 */
+	phone_no		STRING LIST NULL,		/* 내선번호 */
+	mobile_no		STRING LIST NULL,		/* 휴대폰 */
+	email		TEXT NULL,		/* 이메일 */
+);
+
+ECHO "[CREATE TABLE - END: person]";
+
+ECHO "[CREATE INDEX - BEGIN: person]";
+
+CREATE INDEX text_idx ON person (head_nm, dept_nm, role_nm, email);
+CREATE INDEX strl_idx ON person (phone_no, mobile_no);
+CREATE INDEX strp_idx ON person (prs_nm_ko, prs_nm_en);
+CREATE INDEX str_idx  ON person (tree_data);
+
+ECHO "[CREATE INDEX - END: person]";
+
+
+ECHO "[CREATE GATEWAY - BEGIN: gw_person]";
+
+CREATE GATEWAY gw_person ON person
+TO FILE SYSTEM
+FORMAT
+
+	prs_seq		= "<__prs_seq__>",
+	prs_nm_ko	= "<__prs_nm_ko__>",
+	prs_nm_en	= "<__prs_nm_en__>",
+	head_nm		= "<__head_nm__>",
+	dept_nm		= "<__dept_nm__>",
+	role_nm		= "<__role_nm__>",
+	tree_data	= "<__tree_data__>",
+	picture		= "<__picture__>",
+	phone_no	= "<__phone_no__>",
+	mobile_no	= "<__mobile_no__>",
+	email		= "<__email__>";
+
+ECHO "[CREATE GATEWAY - END: gw_person]";
+

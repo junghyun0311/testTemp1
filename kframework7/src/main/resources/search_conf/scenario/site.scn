@@ -1,0 +1,21 @@
+scenario site
+{
+	link		h1
+	volume		site
+	table		site
+
+	field		=  site_seq
+	field		=  site_nm (40, "<strong>", "</strong>")
+	field		=  site_desc (, "<strong>", "</strong>")
+	field		=  site_hompy
+	field		=  site_ctgr
+}
+
+scenario site_group
+{
+	link		h1
+	volume		site
+	table		site
+
+	field		=  site_ctgr
+}

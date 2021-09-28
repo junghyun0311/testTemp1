@@ -1,0 +1,5 @@
+ECHO "[IMPORT DATA - BEGIN: person]";
+USE VOLUME temp;
+IMPORT RECORDS FROM FILE SYSTEM TO person THROUGH gw_person SELECT ../cxfile/bulk/person *.fgf;
+
+ECHO "[IMPORT DATA - END: person]";

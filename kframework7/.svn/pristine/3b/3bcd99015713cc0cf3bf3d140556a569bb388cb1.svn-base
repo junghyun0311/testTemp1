@@ -1,0 +1,5 @@
+ECHO "[IMPORT DATA - BEGIN: site]";
+USE VOLUME temp;
+IMPORT RECORDS FROM FILE SYSTEM TO site THROUGH gw_site SELECT ../cxfile/bulk/site *.fgf;
+
+ECHO "[IMPORT DATA - END: site]";

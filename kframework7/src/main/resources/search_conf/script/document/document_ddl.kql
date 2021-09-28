@@ -1,0 +1,50 @@
+ECHO "[CREATE TABLE - BEGIN: document]";
+USE VOLUME temp;
+CREATE TABLE document
+(
+	doc_seq		STRING PRIMARY,		/* 문서 pk */
+	title		TEXT NULL,		/* 제목 */
+	content		TEXT NULL,		/* 본문 */
+	filename	TEXT NULL,		/* 파일명 */
+	fileext		STRING VERBATIM NULL,	/* 파일 확장자 */
+	filepath	TEXT NULL,		/* 파일내용 */
+	writer		STRING PARA NULL,	/* 작성자 */
+	regdate		INT64 META NULL,	/* 작성일 */
+	year		INT16 META NULL,	/* 작성연도 */
+	fullpath	TEXT NULL,		/* 카테고리패스 */
+	thumbnail	STRING NULL,		/* 사진경로 */
+);
+
+ECHO "[CREATE TABLE - END: document]";
+
+ECHO "[CREATE INDEX - BEGIN: document]";
+
+CREATE INDEX text_idx ON document (title, content, filename, filepath, fullpath);
+CREATE INDEX strv_idx ON document (fileext);
+CREATE INDEX strp_idx ON document (writer);
+CREATE INDEX int16_idx ON document (year);
+CREATE INDEX int64_idx ON document (regdate);
+
+ECHO "[CREATE INDEX - END: document]";
+
+
+ECHO "[CREATE GATEWAY - BEGIN: gw_document]";
+
+CREATE GATEWAY gw_document ON document
+TO FILE SYSTEM
+FORMAT
+
+	doc_seq		= "<__doc_seq__>",
+	title		= "<__title__>",
+	content		= "<__content__>",
+	filename	= "<__filename__>",
+	fileext		= "<__fileext__>",
+	filepath	= "<__filepath__>",
+	writer		= "<__writer__>",
+	regdate		= "<__regdate__>",
+	year		= "<__year__>",
+	fullpath	= "<__fullpath__>",
+	thumbnail	= "<__thumbnail__>";
+
+ECHO "[CREATE GATEWAY - END: gw_document]";
+

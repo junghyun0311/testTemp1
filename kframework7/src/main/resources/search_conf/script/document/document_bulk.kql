@@ -1,0 +1,25 @@
+ECHO "[##### BULK INDEXING - BEGIN: document #####]";
+
+SCHEDULE * OFF;
+
+CREATE VOLUME BY FORCE temp;
+USE VOLUME temp;
+
+/*
+exec "jdbc_document_bulk.bat";
+*/
+
+RUN ../script/document/document_ddl.kql;
+
+RUN ../script/document/document_dml.kql;
+
+
+ECHO "[COPY VOLUME - BEGIN: //localhost/temp -> //localhost/document]";
+
+COPY VOLUME temp TO document;
+
+ECHO "[COPY VOLUME - BEGIN: //localhost/temp -> //localhost/document]";
+
+SCHEDULE * ON;
+
+ECHO "[##### BULK INDEXING - END: document #####]";
